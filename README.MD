@@ -50,7 +50,7 @@ Usage
 после конфигурирования выполняем миграцию:
 
 ```
-yii migrate/up --migrationPath=vendor/pozitronik/yii2-filestorage/migrations
+yii migrate --migrationPath=@vendor/pozitronik/yii2-filestorage/migrations
 ```
 
 Логика: добавляем FileStorageTrait к любому наследнику Model::class. Он добавляет классу атрибут UploadedFile $uploadFileInstance, а также методы
