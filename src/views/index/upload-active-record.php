@@ -8,7 +8,7 @@ declare(strict_types = 1);
  */
 
 use kartik\select2\Select2;
-use pozitronik\filestoragewidgets\file_input\FileInputWidget;
+use pozitronik\filestorage\widgets\file_input\FileInputWidget;
 use yii\db\ActiveRecord;
 use yii\helpers\Html;
 use yii\web\View;
