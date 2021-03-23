@@ -62,6 +62,13 @@ class FileInputWidget extends InputWidget {
 			$this->options['onchange'] = new JsExpression("generateOnchangeAction($(this), $('#{$this->_input_id}-info'))");
 		}
 
+		if ($this->allowUpload) {
+			/** Auto-set form enctype for file uploads */
+			if (isset($this->field) && isset($this->field->form) && !isset($this->field->form->options['enctype'])) {
+				$this->field->form->options['enctype'] = 'multipart/form-data';
+			}
+		}
+
 		if (null === $fileStorage->model_key) {//new ActiveRecord or model without key
 			return $this->render('file_input', [
 				'inputId' => $this->_input_id,
