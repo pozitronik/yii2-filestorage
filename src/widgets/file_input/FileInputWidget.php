@@ -165,7 +165,7 @@ class FileInputWidget extends InputWidget {
 	private function generateDownloadButton(FileStorage $file):string {
 		if ((null === $uploadedFile = FileStorage::findModel($file->id)) || null === $uploadedFile->size) {
 			return Html::tag('div', Html::tag('i', '', [
-				'class' => 'fa fa-exclamation-triangle',
+				'class' => 'glyphicon glyphicon-exclamation-sign',
 				'title' => 'Файл не найден!'
 			]), [
 				'class' => 'btn btn-danger file-input-download-not-found',
@@ -173,7 +173,7 @@ class FileInputWidget extends InputWidget {
 			]);
 		}
 		return FSModule::a(Html::tag('i', '', [
-			'class' => 'fa fa-download',
+			'class' => 'glyphicon glyphicon-download',
 			'title' => 'Скачать файл'
 		]), ['index/download', 'id' => $uploadedFile->id], [
 			'class' => 'btn btn-info file-input-download',
@@ -187,7 +187,7 @@ class FileInputWidget extends InputWidget {
 	 */
 	private function generateVersionsButton(FileStorage $file):string {
 		return Html::button(Html::tag('i', '', [
-			'class' => 'fa fa-history'
+			'class' => 'glyphicon glyphicon-time'
 		]), [
 			'class' => 'btn btn-default file-input-storage-versions',
 			'onclick' => new JsExpression("jQuery('#file-storage-versions-{$file->id}').modal('show')")
