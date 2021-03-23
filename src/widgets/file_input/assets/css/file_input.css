@@ -1,0 +1,33 @@
+/*Стиль кнопки файлового инпута*/
+.file-input-container .file-input-input .file-input-replacement {
+}
+
+/*базовый инпут прячется*/
+.file-input-container .file-input-input .file-input-replacement input[type="file"] {
+    display: none;
+}
+
+/*Кнопка-ссылка на загрузку файла*/
+.file-input-container .file-input-input .file-input-download {
+}
+
+
+/*Псевдокнопка потерянного файла*/
+.file-input-container .file-input-download-not-found {
+}
+
+.file-input-container .file-input-input .file-input-replacement,
+.file-input-container .file-input-input .file-input-download,
+.file-input-container .file-input-input .file-input-storage-versions,
+.file-input-container .file-input-input .file-input-download-not-found {
+    float: right !important;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    border-radius: 3px;
+    margin-left: 5px;
+}
