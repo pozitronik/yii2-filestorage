@@ -1,16 +1,14 @@
 <?php
 declare(strict_types = 1);
 
-namespace app\modules\fs\migrations;
-use app\components\TWSMigration;
-use app\modules\fs\models\FileStorage;
-use app\modules\fs\models\FileTags;
+use pozitronik\filestorage\models\FileStorage;
+use pozitronik\filestorage\models\FileTags;
+use yii\db\Migration;
 
 /**
- * Class m201001_092109_FileStorageMigration
+ * Class m000000000000_FileStorageMigration
  */
-class m201001_092109_FileStorageMigration extends TWSMigration
-{
+class m000000_000000_FileStorageMigration extends Migration {
 	/**
 	 * @return string
 	 */
