@@ -43,7 +43,7 @@ $versionsProvider = new ArrayDataProvider(['allModels' => $fileStorage->versions
 					return Html::tag('i', '', ['class' => 'fa fa-exclamation-triangle', 'style' => 'color: red']).$model->name;
 				}
 				return FSModule::a(Html::tag('i', '', [
-						'class' => 'fa fa-download',
+						'class' => 'glyphicon glyphicon-download',
 						'title' => 'Скачать файл'
 					])." ".$model->name, ['index/download', 'id' => $model->id], [
 					'class' => 'btn btn-info file-input-download',

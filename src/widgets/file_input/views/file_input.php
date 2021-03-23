@@ -31,7 +31,7 @@ use yii\web\View;
 				<?php endif; ?>
 				<?php if (false !== $input): ?>
 					<label for="<?= $inputId ?>" class="btn btn-success file-input-replacement">
-						<i class="fa fa-upload"></i>
+						<i class="glyphicon glyphicon-upload"></i>
 						<?= $input ?>
 					</label>
 				<?php endif; ?>
