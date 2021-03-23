@@ -47,13 +47,13 @@ ModalHelperAsset::register($this);
 					'template' => '{view} {versions} {copy} {upload}',
 					'buttons' => [
 						'versions' => static function($url, $model, $key) {
-							return Html::a('<i class="fa fa-tags"></i>', $url);
+							return Html::a('<i class="glyphicon glyphicon-tags"></i>', $url);
 						},
 						'copy' => static function($url, $model, $key) {
-							return Html::a('<i class="fa fa-copy"></i>', $url);
+							return Html::a('<i class="glyphicon glyphicon-copy"></i>', $url);
 						},
 						'upload' => static function($url, $model, $key) {
-							return Html::button('<i class="fa fa-upload"></i>', [
+							return Html::button('<i class="glyphicon glyphicon-upload"></i>', [
 								'onclick' => new JsExpression('AjaxModal("'.FSModule::to(['index/modal-upload', 'id' => $model->id]).'", "file-modal-upload")')
 							]);
 						},
@@ -64,7 +64,7 @@ ModalHelperAsset::register($this);
 					'attribute' => 'name',
 					'value' => static function(FileStorage $model) {
 						if (null === $model->size) {//файл не найден
-							return Html::tag('i', '', ['class' => 'fa fa-exclamation-triangle', 'style' => 'color: red']).$model->name;
+							return Html::tag('i', '', ['class' => 'glyphicon glyphicon-exclamation-sign', 'style' => 'color: red']).$model->name;
 						}
 						return FSModule::a($model->name, ['index/download', 'id' => $model->id]);
 					},

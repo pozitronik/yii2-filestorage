@@ -41,7 +41,7 @@ $versionsProvider = new ArrayDataProvider(['allModels' => $fileStorageModel->get
 							'attribute' => 'name',
 							'value' => static function(FileStorage $model) {
 								if (null === $model->size) {//файл не найден
-									return Html::tag('i', '', ['class' => 'fa fa-exclamation-triangle', 'style' => 'color: red']).$model->name;
+									return Html::tag('i', '', ['class' => 'glyphicon glyphicon-exclamation-sign', 'style' => 'color: red']).$model->name;
 								}
 								return FSModule::a($model->name, ['index/download', 'id' => $model->id]);
 							},

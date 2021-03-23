@@ -25,7 +25,7 @@ use yii\widgets\ActiveForm;
 	'id' => "file-modal-upload",
 	'size' => Modal::SIZE_LARGE,
 	'header' => '<div class="modal-title">Загрузка файла:</div>',
-	'footer' => Html::submitButton('<i class="fa fa-save"></i> Загрузить', ['class' => 'btn btn-success', 'form' => 'file-modal-upload-form']),//post button outside the form
+	'footer' => Html::submitButton('<i class="glyphicon glyphicon-save"></i> Загрузить', ['class' => 'btn btn-success', 'form' => 'file-modal-upload-form']),//post button outside the form
 	'clientOptions' => ['backdrop' => true]
 ]); ?>
 
