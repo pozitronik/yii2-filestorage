@@ -24,9 +24,6 @@ $versionsProvider = new ArrayDataProvider(['allModels' => $fileStorageModel->ver
 			<div class="col-md-12">
 				<?= GridView::widget([
 					'dataProvider' => $versionsProvider,
-					'export' => false,
-					'resizableColumns' => true,
-					'responsive' => true,
 					'columns' => [
 						'versionIndex',
 						[
