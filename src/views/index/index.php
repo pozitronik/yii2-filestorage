@@ -7,6 +7,7 @@ declare(strict_types = 1);
  * @var FileStorageSearch $searchModel
  */
 
+use pozitronik\filestorage\assets\ModalHelperAsset;
 use pozitronik\filestorage\FSModule;
 use pozitronik\filestorage\models\FileStorage;
 use pozitronik\filestorage\models\FileStorageSearch;
@@ -36,11 +37,6 @@ ModalHelperAsset::register($this);
 			'dataProvider' => $dataProvider,
 			'filterOnFocusOut' => false,
 			'id' => 'filestorage-grid-index',
-			'showPageSummary' => false,
-			'pageSummaryRowOptions' => [
-				'class' => 'kv-page-summary'
-			],
-			'panelHeadingTemplate' => '<div class="pull-left m-r-sm">{summary}</div><div class="pull-right">{toolbar}</div><div class="clearfix"></div>',
 			'formatter' => [
 				'class' => Formatter::class,
 				'nullDisplay' => 'Отсутствует'
