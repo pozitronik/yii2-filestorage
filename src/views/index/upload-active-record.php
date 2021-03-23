@@ -20,7 +20,7 @@ use yii\widgets\ActiveForm;
 		<div class="panel-body">
 			<div class="row">
 				<div class="col-md-4">
-					<?= $form->field($model, 'uploadFileInstance')->widget(FileInputWidget::class); ?>
+					<?= $form->field($model, 'uploadFileInstance')->widget(FileInputWidget::class) ?>
 				</div>
 				<div class="col-md-4">
 					<label class="control-label">Выбранная модель (для тестов используются модель FileStorage)</label>
