@@ -1,11 +1,10 @@
 <?php
 declare(strict_types = 1);
 
-namespace pozitronik\filestoragewidgets\file_input;
+namespace pozitronik\filestorage\widgets\file_input;
 
 use pozitronik\filestorage\FSModule;
 use pozitronik\filestorage\models\FileStorage;
-use pozitronik\filestorage\widgets\file_input\FileInputWidgetAssets;
 use Throwable;
 use yii\base\InvalidConfigException;
 use yii\helpers\Html;
