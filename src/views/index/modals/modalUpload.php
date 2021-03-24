@@ -38,7 +38,6 @@ use yii\widgets\ActiveForm;
 	<div class="panel-body">
 		<div class="row">
 			<div class="col-md-6">
-				<label class="control-label">Файл</label>
 				<?= $form->field($model, $fileAttribute)->widget(FileInputWidget::class) ?>
 			</div>
 			<div class="col-md-6">
