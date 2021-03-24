@@ -53,10 +53,10 @@ ModalHelperAsset::register($this);
 							return Html::a('<i class="glyphicon glyphicon-copy"></i>', $url);
 						},
 						'upload' => static function($url, $model, $key) {
-							return Html::button('<i class="glyphicon glyphicon-upload"></i>', [
+							return Html::a('<i class="glyphicon glyphicon-upload"></i>', "#", [
 								'onclick' => new JsExpression('AjaxModal("'.FSModule::to(['index/modal-upload', 'id' => $model->id]).'", "file-modal-upload")')
 							]);
-						},
+						}
 					]
 				],
 				[
