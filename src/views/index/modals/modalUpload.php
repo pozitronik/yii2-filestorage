@@ -32,8 +32,7 @@ use yii\widgets\ActiveForm;
 <?php $form = ActiveForm::begin([
 	'id' => 'file-modal-upload-form',
 	'action' => FSModule::to(['index/modal-upload', 'id' => $fileStorage->id]),
-	'method' => 'POST',
-	'options' => ['enctype' => 'multipart/form-data']
+	'method' => 'POST'
 ]); ?>
 <div class="hpanel">
 	<div class="panel-body">
