@@ -22,6 +22,7 @@ use yii\widgets\InputWidget;
  * @property bool $allowDownload Отображать кнопку загрузки файла
  * @property bool $nameSubstitution При выборе файла подставлять его имя в строку информации
  *
+ *
  * Виджет проверялся только с заданием через model+attribute, генерацию с name пока не трогал
  */
 class FileInputWidget extends InputWidget {
@@ -31,6 +32,8 @@ class FileInputWidget extends InputWidget {
 	public $allowDownload = true;
 	public $allowVersions = true;
 	public $nameSubstitution = true;
+
+	public $options = ['class' => 'form-control'];
 
 	private $_input_id;
 
@@ -48,6 +51,14 @@ class FileInputWidget extends InputWidget {
 		FileInputWidgetAssets::register($this->getView());
 		$this->_input_id = Html::getInputId($this->model, $this->attribute).static::$counter++;
 		$this->options['id'] = $this->_input_id;
+		if ($this->allowUpload) {
+			Html::addCssClass($this->options, 'form-control');//required by yii form filters
+
+			/** Auto-set form enctype for file uploads */
+			if (isset($this->field) && isset($this->field->form) && !isset($this->field->form->options['enctype'])) {
+				$this->field->form->options['enctype'] = 'multipart/form-data';
+			}
+		}
 	}
 
 	/**
@@ -60,13 +71,6 @@ class FileInputWidget extends InputWidget {
 
 		if ($this->nameSubstitution) {
 			$this->options['onchange'] = new JsExpression("generateOnchangeAction($(this), $('#{$this->_input_id}-info'))");
-		}
-
-		if ($this->allowUpload) {
-			/** Auto-set form enctype for file uploads */
-			if (isset($this->field) && isset($this->field->form) && !isset($this->field->form->options['enctype'])) {
-				$this->field->form->options['enctype'] = 'multipart/form-data';
-			}
 		}
 
 		if (null === $fileStorage->model_key) {//new ActiveRecord or model without key
