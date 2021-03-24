@@ -77,7 +77,7 @@ class FileInputWidget extends InputWidget {
 			return $this->render('file_input', [
 				'inputId' => $this->_input_id,
 				'fileInfo' => $this->emptyFileInfo,
-				'input' => $this->renderInputHtml('file'),
+				'input' => $this->renderFileInputHtml(),
 				'downloadButton' => false,
 				'versionsButton' => false,
 			]);
@@ -90,7 +90,7 @@ class FileInputWidget extends InputWidget {
 			$renders[] = $this->render('file_input', [
 				'inputId' => $this->_input_id,
 				'fileInfo' => $this->emptyFileInfo,
-				'input' => $this->allowUpload?$this->renderInputHtml('file'):false,
+				'input' => $this->allowUpload?$this->renderFileInputHtml():false,
 				'downloadButton' => false,
 				'versionsButton' => false,
 			]);
@@ -107,7 +107,7 @@ class FileInputWidget extends InputWidget {
 				$renders[] = $this->render('file_input', [
 					'inputId' => $this->_input_id,
 					'fileInfo' => $this->generateFileInfo($file),
-					'input' => $this->allowUpload?$this->renderInputHtml('file'):false,
+					'input' => $this->allowUpload?$this->renderFileInputHtml():false,
 					'downloadButton' => $this->allowDownload?$this->generateDownloadButton($file):false,
 					'versionsButton' => $this->allowVersions?$this->generateVersionsButton($file):false,
 				]);
@@ -121,15 +121,14 @@ class FileInputWidget extends InputWidget {
 	}
 
 	/**
-	 * @param string $type
 	 * @param array|null $options
 	 * @return string
 	 */
-	protected function renderInputHtml($type, ?array $options = null):string {
+	protected function renderFileInputHtml(?array $options = null):string {
 		if ($this->hasModel()) {
-			return Html::activeInput($type, $this->model, $this->attribute, $options??$this->options);
+			return Html::activeFileInput($this->model, $this->attribute, $options??$this->options);
 		}
-		return Html::input($type, $this->name, $this->value, $options??$this->options);
+		return Html::fileInput($this->name, $this->value, $options??$this->options);
 	}
 
 	/**
