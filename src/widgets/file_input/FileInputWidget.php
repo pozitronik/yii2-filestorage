@@ -126,9 +126,9 @@ class FileInputWidget extends InputWidget {
 	 */
 	protected function renderFileInputHtml(?array $options = null):string {
 		if ($this->hasModel()) {
-			return Html::activeFileInput($this->model, $this->attribute, $options??$this->options);
+			return Html::activeHiddenInput($this->model, $this->attribute).Html::activeFileInput($this->model, $this->attribute, $options??$this->options);//к файловым атрибутам требуется добавлять одноименные скрытые атрибуты, чтобы они появлялись в посте
 		}
-		return Html::fileInput($this->name, $this->value, $options??$this->options);
+		return Html::hiddenInput($this->name, $this->value).Html::fileInput($this->name, $this->value, $options??$this->options);
 	}
 
 	/**
