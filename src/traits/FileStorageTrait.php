@@ -4,6 +4,7 @@ declare(strict_types = 1);
 namespace pozitronik\filestorage\traits;
 
 use pozitronik\filestorage\models\FileStorage;
+use pozitronik\helpers\ArrayHelper;
 use Throwable;
 use yii\base\Model;
 use yii\web\ServerErrorHttpException;
@@ -20,28 +21,48 @@ trait FileStorageTrait {
 	/**
 	 * Шорткат для загрузки файла по имени файлового атрибута сразу с привязкой к этому атрибуту
 	 * @param string $attributeName
+	 * @param Model|null $toModel Если не null, то загружаемые файлы будут ассоциированы с указанной моделью
 	 * @return FileStorage[]
 	 * @throws Throwable
 	 */
-	public function uploadAttribute(string $attributeName):array {
-		return $this->uploadFile([$attributeName], $attributeName);
+	public function uploadAttribute(string $attributeName, ?Model $toModel = null):array {
+		return $this->uploadFile([$attributeName], $attributeName, $toModel);
+	}
+
+	/**
+	 * Загружает все пришедшие с моделью файлы, тегируя их по именам атрибутов
+	 * @param Model|null $toModel
+	 * @return FileStorage[] При успехе возвращает массив загруженных объектов хранения файла
+	 * @throws Throwable
+	 */
+	public function uploadAttributes(?Model $toModel = null):array {
+		$result = [];
+		$instances = ArrayHelper::getValue($_FILES, $this->formName().".name", []);
+		foreach ($instances as $attributeName => $fileName) {
+			$result[] = $this->uploadAttribute($attributeName, $toModel);
+		}
+		return array_merge(...$result);
 	}
 
 	/**
 	 * Загружает файл в соответствующий модели каталог, возвращает полный путь или null в случае ошибки
 	 * @param string[] $tags Массив тегов, прибиваемых к загрузке
 	 * @param string $instanceName Параметр для переопределения имени инпута при необходимости
+	 * @param Model|null $toModel Если не null, то загружаемые файлы будут ассоциированы с указанной моделью
 	 * @return FileStorage[] При успехе возвращает массив загруженных объектов хранения файла
 	 * @throws Throwable
 	 */
-	public function uploadFile(array $tags = [], string $instanceName = 'uploadFileInstance'):array {
+	public function uploadFile(array $tags = [], string $instanceName = 'uploadFileInstance', ?Model $toModel = null):array {
 		$result = [];
+
+		$uploadModel = $toModel??$this;
+
 		/** @var Model $this */
 		if (null !== $uploadFileInstance = UploadedFile::getInstance($this, $instanceName)) {
-			$result[] = $this->processUploadInstance($uploadFileInstance, $tags);
+			$result[] = $uploadModel->processUploadInstance($uploadFileInstance, $tags);
 		} elseif ([] !== $uploadFileInstances = UploadedFile::getInstances($this, $instanceName)) {
 			foreach ($uploadFileInstances as $uploadFileInstance) {
-				$result[] = $this->processUploadInstance($uploadFileInstance, $tags);
+				$result[] = $uploadModel->processUploadInstance($uploadFileInstance, $tags);
 			}
 		}
 		return $result;
