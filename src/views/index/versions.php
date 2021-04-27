@@ -62,8 +62,8 @@ $versionsProvider = new ArrayDataProvider(['allModels' => $fileStorageModel->ver
 							'attribute' => 'tags',
 							'value' => static function(FileStorage $model) {
 								return BadgeWidget::widget([
-									'models' => $model->tags,
-									'attribute' => 'value',
+									'items' => $model->tags,
+									'subItem' => 'value',
 									'useBadges' => true
 								]);
 							},
