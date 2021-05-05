@@ -1,6 +1,8 @@
 <?php
 declare(strict_types = 1);
 
+namespace pozitronik\filestorage\migrations;
+
 use pozitronik\filestorage\models\FileStorage;
 use pozitronik\filestorage\models\FileTags;
 use yii\db\Migration;
