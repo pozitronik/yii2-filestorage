@@ -377,7 +377,14 @@ class FileStorage extends ActiveRecord {
 			return false;
 		}
 
-		$fileName = BaseFileHelper::normalizePath($this->uploadDir.DIRECTORY_SEPARATOR.PathHelper::ChangeFileName($this->uploadFileInstance->name, pathinfo($this->uploadFileInstance->name, PATHINFO_FILENAME)."_".Utils::random_str(16)));//файл сохраняется с оригинальным именем и случайным постфиксом, во избежание коллизий
+		$fileName = $this->uploadFileInstance->name;
+		if ('' === pathinfo($this->uploadFileInstance->name, PATHINFO_EXTENSION)) {
+			$fileName = PathHelper::ChangeFileExtension($fileName, ArrayHelper::getValue(BaseFileHelper::getExtensionsByMimeType($this->uploadFileInstance->type), '0', 'unknown'));
+		}
+
+		$fileName = BaseFileHelper::normalizePath($this->uploadDir.DIRECTORY_SEPARATOR.PathHelper::ChangeFileName($fileName, pathinfo($fileName, PATHINFO_FILENAME)."_".Utils::random_str(16)));//файл сохраняется с оригинальным именем и случайным постфиксом, во избежание коллизий
+
+
 		if (!$this->uploadFileInstance->saveAs($fileName)) {
 			$this->addError('uploadFileInstance', "Не могу сохранить файл {$fileName}");
 			return false;
