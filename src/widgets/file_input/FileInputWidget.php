@@ -5,6 +5,7 @@ namespace pozitronik\filestorage\widgets\file_input;
 
 use pozitronik\filestorage\FSModule;
 use pozitronik\filestorage\models\FileStorage;
+use pozitronik\helpers\BootstrapHelper;
 use Throwable;
 use yii\base\InvalidConfigException;
 use yii\helpers\Html;
@@ -26,22 +27,31 @@ use yii\widgets\InputWidget;
  * Виджет проверялся только с заданием через model+attribute, генерацию с name пока не трогал
  */
 class FileInputWidget extends InputWidget {
-	public $fileInfoMask = "{name}<br/><span class='small'>загружен: {at}</span>";
-	public $emptyFileInfo = "<span class='text-warning'>Файл отсутствует</span>";
-	public $allowUpload = true;
-	public $allowDownload = true;
-	public $allowVersions = true;
-	public $nameSubstitution = true;
+	public string $fileInfoMask = "{name}<br/><span class='small'>загружен: {at}</span>";
+	public string $emptyFileInfo = "<span class='text-warning'>Файл отсутствует</span>";
+	public bool $allowUpload = true;
+	public bool $allowDownload = true;
+	public bool $allowVersions = true;
+	public bool $nameSubstitution = true;
 
 	public $options = ['class' => 'form-control'];
 
 	private $_input_id;
 
+	private bool $_isBs4 = false;
+
 	/**
 	 * @var int a counter used to generate unique input id for widgets.
 	 * @internal
 	 */
-	public static $counter = 0;
+	public static $counter;
+
+	/**
+	 * @inheritDoc
+	 */
+	public function getViewPath():string {
+		return parent::getViewPath().DIRECTORY_SEPARATOR.($this->_isBs4)?'bs4':'bs3';
+	}
 
 	/**
 	 * Функция инициализации и нормализации свойств виджета
@@ -51,11 +61,12 @@ class FileInputWidget extends InputWidget {
 		FileInputWidgetAssets::register($this->getView());
 		$this->_input_id = Html::getInputId($this->model, $this->attribute).static::$counter++;
 		$this->options['id'] = $this->_input_id;
+		$this->_isBs4 = BootstrapHelper::isBs4();
 		if ($this->allowUpload) {
 			Html::addCssClass($this->options, 'form-control');//required by yii form filters
 
 			/** Auto-set form enctype for file uploads */
-			if (isset($this->field) && isset($this->field->form) && !isset($this->field->form->options['enctype'])) {
+			if (isset($this->field, $this->field->form) && !isset($this->field->form->options['enctype'])) {
 				$this->field->form->options['enctype'] = 'multipart/form-data';
 			}
 		}
@@ -168,7 +179,7 @@ class FileInputWidget extends InputWidget {
 	private function generateDownloadButton(FileStorage $file):string {
 		if ((null === $uploadedFile = FileStorage::findModel($file->id)) || null === $uploadedFile->size) {
 			return Html::tag('div', Html::tag('i', '', [
-				'class' => 'glyphicon glyphicon-exclamation-sign',
+				'class' => $this->_isBs4?'fa fa-exclamation-triangle':'glyphicon glyphicon-exclamation-sign',
 				'title' => 'Файл не найден!'
 			]), [
 				'class' => 'btn btn-danger file-input-download-not-found',
@@ -176,7 +187,7 @@ class FileInputWidget extends InputWidget {
 			]);
 		}
 		return FSModule::a(Html::tag('i', '', [
-			'class' => 'glyphicon glyphicon-download',
+			'class' => $this->_isBs4?'fa fa-download':'glyphicon glyphicon-download',
 			'title' => 'Скачать файл'
 		]), ['index/download', 'id' => $uploadedFile->id], [
 			'class' => 'btn btn-info file-input-download',
@@ -190,7 +201,7 @@ class FileInputWidget extends InputWidget {
 	 */
 	private function generateVersionsButton(FileStorage $file):string {
 		return Html::button(Html::tag('i', '', [
-			'class' => 'glyphicon glyphicon-time'
+			'class' => $this->_isBs4?'fa fa-history':'glyphicon glyphicon-time'
 		]), [
 			'class' => 'btn btn-default file-input-storage-versions',
 			'onclick' => new JsExpression("jQuery('#file-storage-versions-{$file->id}').modal('show')")
