@@ -29,7 +29,6 @@ $versionsProvider = new ArrayDataProvider(['allModels' => $fileStorage->versions
 
 <?= GridView::widget([
 	'dataProvider' => $versionsProvider,
-	'export' => false,
 	'resizableColumns' => true,
 	'responsive' => true,
 	'summary' => "Найдена ".Utils::pluralForm($versionsProvider->totalCount, ['версия', 'версии', 'версий']),
