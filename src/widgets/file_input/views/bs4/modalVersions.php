@@ -9,11 +9,11 @@ declare(strict_types = 1);
 use pozitronik\filestorage\FSModule;
 use pozitronik\filestorage\models\FileStorage;
 use pozitronik\helpers\Utils;
-use yii\bootstrap\Modal;
+use yii\bootstrap4\Modal;
 use yii\data\ArrayDataProvider;
 use yii\grid\DataColumn;
 use yii\grid\GridView;
-use yii\helpers\Html;
+use yii\bootstrap4\Html;
 use yii\web\View;
 
 $versionsProvider = new ArrayDataProvider(['allModels' => $fileStorage->versions])
@@ -22,7 +22,7 @@ $versionsProvider = new ArrayDataProvider(['allModels' => $fileStorage->versions
 <?php Modal::begin([
 	'id' => "file-storage-versions-{$fileStorage->id}",
 	'size' => Modal::SIZE_LARGE,
-	'header' => '<div class="modal-title">История загрузок файла:</div>',
+	'title' => '<div class="modal-title">История загрузок файла:</div>',
 	'footer' => false,
 	'clientOptions' => ['backdrop' => true]
 ]); ?>
@@ -43,7 +43,7 @@ $versionsProvider = new ArrayDataProvider(['allModels' => $fileStorage->versions
 					return Html::tag('i', '', ['class' => 'fa fa-exclamation-triangle', 'style' => 'color: red']).$model->name;
 				}
 				return FSModule::a(Html::tag('i', '', [
-						'class' => 'glyphicon glyphicon-download',
+						'class' => 'fa fa-download',
 						'title' => 'Скачать файл'
 					])." ".$model->name, ['index/download', 'id' => $model->id], [
 					'class' => 'btn btn-info file-input-download',
