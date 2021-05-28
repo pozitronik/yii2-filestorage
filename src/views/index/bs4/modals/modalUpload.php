@@ -14,8 +14,8 @@ use pozitronik\filestorage\FSModule;
 use pozitronik\filestorage\models\FileStorage;
 use pozitronik\filestorage\widgets\file_input\FileInputWidget;
 use yii\base\Model;
-use yii\bootstrap\Modal;
-use yii\helpers\Html;
+use yii\bootstrap4\Modal;
+use yii\bootstrap4\Html;
 use yii\web\View;
 use yii\widgets\ActiveForm;
 
@@ -24,8 +24,8 @@ use yii\widgets\ActiveForm;
 <?php Modal::begin([
 	'id' => "file-modal-upload",
 	'size' => Modal::SIZE_LARGE,
-	'header' => '<div class="modal-title">Загрузка файла:</div>',
-	'footer' => Html::submitButton('<i class="glyphicon glyphicon-save"></i> Загрузить', ['class' => 'btn btn-success', 'form' => 'file-modal-upload-form']),//post button outside the form
+	'title' => '<div class="modal-title">Загрузка файла:</div>',
+	'footer' => Html::submitButton('<i class="fa fa-download"></i> Загрузить', ['class' => 'btn btn-success', 'form' => 'file-modal-upload-form']),//post button outside the form
 	'clientOptions' => ['backdrop' => true]
 ]); ?>
 

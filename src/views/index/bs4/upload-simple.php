@@ -7,7 +7,7 @@ declare(strict_types = 1);
  */
 
 use pozitronik\filestorage\models\test\FileTestModel;
-use yii\helpers\Html;
+use yii\bootstrap4\Html;
 use yii\web\View;
 use yii\widgets\ActiveForm;
 

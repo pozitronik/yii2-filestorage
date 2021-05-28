@@ -16,7 +16,7 @@ use yii\data\ActiveDataProvider;
 use yii\grid\ActionColumn;
 use yii\grid\DataColumn;
 use yii\grid\GridView;
-use yii\helpers\Html;
+use yii\bootstrap\Html;
 use yii\i18n\Formatter;
 use yii\web\JsExpression;
 use yii\web\View;

@@ -7,6 +7,7 @@ use pozitronik\filestorage\models\FileStorage;
 use pozitronik\filestorage\models\FileStorageSearch;
 use pozitronik\filestorage\models\test\FileTestModel;
 use pozitronik\helpers\ArrayHelper;
+use pozitronik\helpers\BootstrapHelper;
 use Throwable;
 use Yii;
 use yii\web\Controller;
@@ -17,6 +18,14 @@ use yii\web\Response;
  * Class IndexController
  */
 class IndexController extends Controller {
+
+	/**
+	 * @inheritDoc
+	 */
+	public function getViewPath():string {
+		return parent::getViewPath().DIRECTORY_SEPARATOR.(BootstrapHelper::isBs4()?'bs4':'bs3');
+	}
+
 
 	/**
 	 * @return string

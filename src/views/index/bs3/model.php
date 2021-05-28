@@ -12,10 +12,10 @@ use pozitronik\widgets\BadgeWidget;
 use yii\data\ArrayDataProvider;
 use yii\grid\DataColumn;
 use yii\grid\GridView;
-use yii\helpers\Html;
+use yii\bootstrap\Html;
 use yii\web\View;
 
-$versionsProvider = new ArrayDataProvider(['allModels' => $fileStorageModel->versions])
+$versionsProvider = new ArrayDataProvider(['allModels' => $fileStorageModel->getActualFiles()])
 
 ?>
 <div class="hpanel">
@@ -25,7 +25,14 @@ $versionsProvider = new ArrayDataProvider(['allModels' => $fileStorageModel->ver
 				<?= GridView::widget([
 					'dataProvider' => $versionsProvider,
 					'columns' => [
-						'versionIndex',
+						[
+							'class' => DataColumn::class,
+							'attribute' => 'versionsCount',
+							'value' => static function(FileStorage $model) {
+								return FSModule::a((string)$model->versionsCount, ['index/versions', 'id' => $model->id]);
+							},
+							'format' => 'raw'
+						],
 						[
 							'class' => DataColumn::class,
 							'attribute' => 'name',
