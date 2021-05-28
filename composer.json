@@ -24,6 +24,10 @@
 		"yiisoft/yii2": "dev-master",
 		"kartik-v/yii2-widget-select2": "dev-master"
 	},
+	"suggest": {
+		"yiisoft/yii2-bootstrap": "for yii2-filestorage extensions to work with Bootstrap 3.x version",
+		"yiisoft/yii2-bootstrap4": "for yii2-filestorage to work with Bootstrap 4.x version"
+	},
 	"autoload": {
 		"psr-4": {
 			"pozitronik\\filestorage\\": "src"
