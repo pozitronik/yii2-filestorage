@@ -58,9 +58,9 @@ class FileInputWidget extends InputWidget {
 	 */
 	public function init():void {
 		parent::init();
+		$this->options['id'] = $this->_input_id;
 		FileInputWidgetAssets::register($this->getView());
 		$this->_input_id = Html::getInputId($this->model, $this->attribute).static::$counter++;
-		$this->options['id'] = $this->_input_id;
 		$this->_isBs4 = BootstrapHelper::isBs4();
 		if ($this->allowUpload) {
 			Html::addCssClass($this->options, 'form-control');//required by yii form filters
