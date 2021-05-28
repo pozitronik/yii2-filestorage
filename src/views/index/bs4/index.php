@@ -12,6 +12,7 @@ use pozitronik\filestorage\FSModule;
 use pozitronik\filestorage\models\FileStorage;
 use pozitronik\filestorage\models\FileStorageSearch;
 use pozitronik\widgets\BadgeWidget;
+use yii\bootstrap4\LinkPager;
 use yii\data\ActiveDataProvider;
 use yii\grid\ActionColumn;
 use yii\grid\DataColumn;
@@ -38,6 +39,9 @@ ModalHelperAsset::register($this);
 			<?= GridView::widget([
 				'filterModel' => $searchModel,
 				'dataProvider' => $dataProvider,
+				'pager' => [
+					'class' => LinkPager::class
+				],
 				'filterOnFocusOut' => false,
 				'id' => 'filestorage-grid-index',
 				'formatter' => [
