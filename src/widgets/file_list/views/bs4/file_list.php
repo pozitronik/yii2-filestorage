@@ -15,7 +15,7 @@ use yii\data\ArrayDataProvider;
 use yii\grid\DataColumn;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
+use yii\bootstrap4\Html;
 use yii\web\View;
 
 ?>
@@ -44,7 +44,7 @@ use yii\web\View;
 			'class' => DataColumn::class,
 			'attribute' => 'name',
 			'value' => static function(FileStorage $model) {
-				$name_block = (null === $model->size)?Html::tag('i', '', ['class' => 'glyphicon glyphicon-exclamation-sign', 'style' => 'color: red']).$model->name:Html::tag("div", $model->name, ['class' => 'file-list-file-name', 'filetype' => pathinfo($model->name, PATHINFO_EXTENSION)]);
+				$name_block = (null === $model->size)?Html::tag('i', '', ['class' => 'fa fa-exclamation-triangle', 'style' => 'color: red']).$model->name:Html::tag("div", $model->name, ['class' => 'file-list-file-name', 'filetype' => pathinfo($model->name, PATHINFO_EXTENSION)]);
 				return Html::tag("div", $model->model->getAttributeLabel(ArrayHelper::getValue($model->tags, '0')), ['class' => 'file-list-attribute-name']).$name_block;
 			},
 			'format' => 'raw'

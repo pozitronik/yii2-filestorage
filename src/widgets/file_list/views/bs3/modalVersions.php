@@ -13,7 +13,7 @@ use yii\bootstrap\Modal;
 use yii\data\ArrayDataProvider;
 use yii\grid\DataColumn;
 use yii\grid\GridView;
-use yii\helpers\Html;
+use yii\bootstrap\Html;
 use yii\web\View;
 
 $versionsProvider = new ArrayDataProvider(['allModels' => $fileStorage->versions])
