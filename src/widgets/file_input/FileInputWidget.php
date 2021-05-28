@@ -50,7 +50,7 @@ class FileInputWidget extends InputWidget {
 	 * @inheritDoc
 	 */
 	public function getViewPath():string {
-		return parent::getViewPath().DIRECTORY_SEPARATOR.($this->_isBs4)?'bs4':'bs3';
+		return parent::getViewPath().DIRECTORY_SEPARATOR.($this->_isBs4?'bs4':'bs3');
 	}
 
 	/**
