@@ -18,7 +18,7 @@ use yii\web\View;
 $versionsProvider = new ArrayDataProvider(['allModels' => $fileStorageModel->versions])
 
 ?>
-<div class="hpanel">
+<div class="panel">
 	<div class="panel-body">
 		<div class="row">
 			<div class="col-md-12">

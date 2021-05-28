@@ -34,9 +34,9 @@ use yii\widgets\ActiveForm;
 	'action' => FSModule::to(['index/modal-upload', 'id' => $fileStorage->id]),
 	'method' => 'POST'
 ]); ?>
-<div class="hpanel">
-	<div class="panel-body">
-		<div class="row">
+<div class="panel">
+	<div class="panel-container show">
+		<div class="panel-content">
 			<div class="col-md-6">
 				<?= $form->field($model, $fileAttribute)->widget(FileInputWidget::class) ?>
 			</div>

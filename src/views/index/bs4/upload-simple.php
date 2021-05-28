@@ -13,17 +13,17 @@ use yii\widgets\ActiveForm;
 
 ?>
 <?php $form = ActiveForm::begin(); ?>
-	<div class="hpanel">
-		<div class="panel-body">
-			<div class="row">
+	<div class="panel">
+		<div class="panel-container show">
+			<div class="panel-content">
 				<div class="col-md-12">
 					<?= $form->field($model, 'uploadFileInstance')->fileInput()->label('Загрузка к тестовой модели') ?>
 				</div>
 			</div>
-		</div>
-		<div class="panel-footer">
-			<div class="btn-group">
-				<?= Html::submitButton('Загрузить', ['class' => 'btn btn-primary']) ?>
+			<div class="panel-content">
+				<div class="btn-group">
+					<?= Html::submitButton('Загрузить', ['class' => 'btn btn-primary']) ?>
+				</div>
 			</div>
 		</div>
 	</div>

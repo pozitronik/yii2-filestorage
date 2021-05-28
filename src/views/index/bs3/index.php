@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ModalHelperAsset::register($this);
 
 ?>
-<div class="hpanel">
+<div class="panel">
 	<div class="panel-heading">
 		<?= FSModule::a('Загрузить к простой модели', ['index/upload-simple'], ['class' => 'btn btn-success']) ?>
 		<?= FSModule::a('Загрузить к AR-модели', ['index/upload-active-record'], ['class' => 'btn btn-success']) ?>

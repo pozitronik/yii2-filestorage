@@ -12,7 +12,7 @@ use yii\base\Model;
 use yii\web\View;
 
 ?>
-<div class="hpanel">
+<div class="panel">
 	<div class="panel-body">
 		<div class="row">
 			<div class="col-md-12">

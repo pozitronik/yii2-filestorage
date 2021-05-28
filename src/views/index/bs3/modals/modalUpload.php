@@ -34,7 +34,7 @@ use yii\widgets\ActiveForm;
 	'action' => FSModule::to(['index/modal-upload', 'id' => $fileStorage->id]),
 	'method' => 'POST'
 ]); ?>
-<div class="hpanel">
+<div class="panel">
 	<div class="panel-body">
 		<div class="row">
 			<div class="col-md-6">

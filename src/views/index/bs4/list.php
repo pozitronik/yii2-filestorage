@@ -12,9 +12,9 @@ use yii\base\Model;
 use yii\web\View;
 
 ?>
-<div class="hpanel">
-	<div class="panel-body">
-		<div class="row">
+<div class="panel">
+	<div class="panel-container show">
+		<div class="panel-content">
 			<div class="col-md-12">
 				<?= FileListWidget::widget([
 					'model' => $model
@@ -22,7 +22,7 @@ use yii\web\View;
 			</div>
 		</div>
 	</div>
-	<div class="panel-footer">
+	<div class="panel-content">
 		<div class="btn-group">
 			<?= FSModule::a('Файловый менеджер', ['index/index'], ['class' => 'btn btn-info pull-left']) ?>
 		</div>

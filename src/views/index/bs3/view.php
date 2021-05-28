@@ -13,7 +13,7 @@ use yii\web\View;
 use yii\widgets\DetailView;
 
 ?>
-<div class="hpanel">
+<div class="panel">
 	<div class="panel-body">
 		<div class="row">
 			<div class="col-md-12">
