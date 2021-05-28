@@ -5,6 +5,7 @@ namespace pozitronik\filestorage\widgets\file_list;
 
 use pozitronik\filestorage\FSModule;
 use pozitronik\filestorage\models\FileStorage;
+use pozitronik\helpers\BootstrapHelper;
 use Throwable;
 use Yii;
 use yii\base\InvalidConfigException;
@@ -25,15 +26,26 @@ use yii\web\JsExpression;
  */
 class FileListWidget extends Widget {
 	public $model;
-	public $tags = [];
-	public $allowVersions = true;
-	public $allowDownload = true;
+	public array $tags = [];
+	public bool $allowVersions = true;
+	public bool $allowDownload = true;
+
+	private bool $_isBs4 = false;
+
+	/**
+	 * @inheritDoc
+	 */
+	public function getViewPath():string {
+		return parent::getViewPath().DIRECTORY_SEPARATOR.($this->_isBs4)?'bs4':'bs3';
+	}
+
 
 	/**
 	 * Функция инициализации и нормализации свойств виджета
 	 */
 	public function init():void {
 		parent::init();
+		$this->_isBs4 = BootstrapHelper::isBs4();
 		FileListWidgetAssets::register($this->getView());
 	}
 
@@ -62,7 +74,7 @@ class FileListWidget extends Widget {
 	public static function generateDownloadButton(FileStorage $file):string {
 		if ((null === $uploadedFile = FileStorage::findModel($file->id)) || null === $uploadedFile->size) {
 			return Html::tag('div', Html::tag('i', '', [
-				'class' => 'fa fa-exclamation-triangle',
+				'class' => BootstrapHelper::isBs4()?'fa fa-exclamation-triangle':'glyphicon glyphicon-exclamation-sign',
 				'title' => 'Файл не найден!'
 			]), [
 				'class' => 'btn btn-danger file-list-download-not-found',
@@ -70,7 +82,7 @@ class FileListWidget extends Widget {
 			]);
 		}
 		return FSModule::a(Html::tag('i', '', [
-			'class' => 'fa fa-download',
+			'class' => BootstrapHelper::isBs4()?'fa fa-download':'glyphicon glyphicon-download',
 			'title' => 'Скачать файл'
 		]), ['index/download', 'id' => $uploadedFile->id], [
 			'class' => 'btn btn-info file-list-download',
