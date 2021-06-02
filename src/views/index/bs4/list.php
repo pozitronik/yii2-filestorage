@@ -21,10 +21,11 @@ use yii\web\View;
 				]) ?>
 			</div>
 		</div>
-	</div>
-	<div class="panel-content">
-		<div class="btn-group">
-			<?= FSModule::a('Файловый менеджер', ['index/index'], ['class' => 'btn btn-info pull-left']) ?>
+		<div class="panel-content">
+			<div class="btn-group">
+				<?= FSModule::a('Файловый менеджер', ['index/index'], ['class' => 'btn btn-info pull-left']) ?>
+			</div>
 		</div>
 	</div>
+
 </div>
