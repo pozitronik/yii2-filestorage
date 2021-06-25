@@ -7,7 +7,7 @@ use yii\web\View;
  * @var View $this
  * @var string $inputId
  * @var string $fileInfo
- * @var string $input
+ * @var string|false $input
  * @var string|false $downloadButton
  * @var string|false $versionsButton
  */

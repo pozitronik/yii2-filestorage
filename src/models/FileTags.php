@@ -3,10 +3,10 @@ declare(strict_types = 1);
 
 namespace pozitronik\filestorage\models;
 
-use pozitronik\core\helpers\ModuleHelper;
-use pozitronik\core\traits\ARExtended;
 use pozitronik\filestorage\FSModule;
 use pozitronik\helpers\ArrayHelper;
+use pozitronik\helpers\ModuleHelper;
+use pozitronik\traits\traits\ActiveRecordTrait;
 use yii\base\Exception;
 use yii\base\InvalidConfigException;
 use yii\db\ActiveQuery;
@@ -16,7 +16,7 @@ use yii\db\ActiveRecord;
  * @property FileStorage $fileStorage
  */
 class FileTags extends ActiveRecord {
-	use ARExtended;
+	use ActiveRecordTrait;
 
 	/**
 	 * {@inheritDoc}

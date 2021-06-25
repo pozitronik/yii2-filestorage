@@ -3,14 +3,14 @@ declare(strict_types = 1);
 
 namespace pozitronik\filestorage\models;
 
-use pozitronik\core\helpers\ModuleHelper;
-use pozitronik\core\traits\ARExtended;
 use pozitronik\filestorage\FSModule;
 use pozitronik\filestorage\traits\FileStorageTrait;
 use pozitronik\helpers\ArrayHelper;
+use pozitronik\helpers\ModuleHelper;
 use pozitronik\helpers\PathHelper;
 use pozitronik\helpers\ReflectionHelper;
 use pozitronik\helpers\Utils;
+use pozitronik\traits\traits\ActiveRecordTrait;
 use ReflectionException;
 use Throwable;
 use Yii;
@@ -57,7 +57,7 @@ use yii\web\UploadedFile;
  */
 class FileStorage extends ActiveRecord {
 	use FileStorageTrait;
-	use ARExtended;
+	use ActiveRecordTrait;
 
 	public const CURRENT_FILE = 0;
 

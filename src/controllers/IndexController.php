@@ -26,7 +26,6 @@ class IndexController extends Controller {
 		return parent::getViewPath().DIRECTORY_SEPARATOR.(BootstrapHelper::isBs4()?'bs4':'bs3');
 	}
 
-
 	/**
 	 * @return string
 	 */
@@ -116,8 +115,8 @@ class IndexController extends Controller {
 	 * @throws Throwable
 	 */
 	public function actionDownload(int $id):void {
-		$fileStorage = FileStorage::findModel($id, new NotFoundHttpException('Файл не найден'));
 		/** @var FileStorage $fileStorage */
+		$fileStorage = FileStorage::findModel($id, new NotFoundHttpException('Файл не найден'));
 		$fileStorage->download();
 	}
 
@@ -128,8 +127,8 @@ class IndexController extends Controller {
 	 */
 	public function actionCopy(int $id):Response {
 		$fileTestModel = new FileTestModel();
-		$fileStorage = FileStorage::findModel($id, new NotFoundHttpException('Файл не найден'));
 		/** @var FileStorage $fileStorage */
+		$fileStorage = FileStorage::findModel($id, new NotFoundHttpException('Файл не найден'));
 		$copiedFile = $fileTestModel->copyFile($fileStorage, ['copied_file']);
 		return $this->redirect(['view', 'id' => $copiedFile->id]);
 	}
@@ -141,8 +140,8 @@ class IndexController extends Controller {
 	 * @throws Throwable
 	 */
 	public function actionList(int $id):string {
-		$fileStorage = FileStorage::findModel($id, new NotFoundHttpException('Файл не найден'));
 		/** @var FileStorage $fileStorage */
+		$fileStorage = FileStorage::findModel($id, new NotFoundHttpException('Файл не найден'));
 		return $this->render('list', [
 			'model' => $fileStorage->model
 		]);
@@ -155,12 +154,13 @@ class IndexController extends Controller {
 	 * @throws Throwable
 	 */
 	public function actionModalUpload(int $id) {
+		/** @var FileStorage $fileStorage */
 		$fileStorage = FileStorage::findModel($id, new NotFoundHttpException('Файл не найден'));
 
+		/** @noinspection PhpUndefinedMethodInspection Мы точно знаем, что метод тут есть */
 		if (Yii::$app->request->isPost && [] !== $fileStorageModels = $fileStorage->model->uploadFile(Yii::$app->request->post('tags', []))) {
-			return $this->redirect(['view', 'id' => ArrayHelper::getValue($fileStorageModels,'0.id')]);
+			return $this->redirect(['view', 'id' => ArrayHelper::getValue($fileStorageModels, '0.id')]);
 		}
-		/** @var FileStorage $fileStorage */
 		if (Yii::$app->request->isAjax) {
 			return $this->renderAjax('modals/modalUpload', [
 				'fileStorage' => $fileStorage,
