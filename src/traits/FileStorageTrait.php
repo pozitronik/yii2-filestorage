@@ -8,6 +8,7 @@ use pozitronik\helpers\ArrayHelper;
 use Throwable;
 use yii\base\Exception;
 use yii\base\Model;
+use yii\helpers\FileHelper;
 use yii\web\ServerErrorHttpException;
 use yii\web\UploadedFile;
 
@@ -71,19 +72,22 @@ trait FileStorageTrait {
 
 	/**
 	 * @param mixed $rawData Любые данные, помещаемые в файл
+	 * @param string|null $filename Название файла для сохраняемых данных
 	 * @param array $tags Массив тегов, прибиваемых к загрузке
 	 * @param Model|null $toModel Если не null, то загружаемые файлы будут ассоциированы с указанной моделью
 	 * @return FileStorage При успехе возвращает загруженный объект хранения файла
 	 * @throws Exception
 	 * @throws Throwable
 	 */
-	public function uploadRawData($rawData, array $tags = [], ?Model $toModel = null):FileStorage {
+	public function uploadRawData($rawData, ?string $filename = null, array $tags = [], ?Model $toModel = null):FileStorage {
+		$path = null === $filename?tempnam(sys_get_temp_dir(), $this->formName()):sys_get_temp_dir().DIRECTORY_SEPARATOR.$filename;
+
 		if (
-			(false === $path = tempnam(sys_get_temp_dir(), $this->formName()))
+			(false === $path)
 			|| (false === $temp = fopen($path, 'wb+'))
 			|| false === fwrite($temp, $rawData)
 			|| false === fclose($temp)
-		) throw new Exception("Can't access temp file!");
+		) throw new Exception("Can't access temp file (path=$path!");
 		/** @var Model $this */
 		return FileStorage::fromFile($path, $toModel??$this, $tags);
 	}
