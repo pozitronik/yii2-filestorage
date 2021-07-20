@@ -8,7 +8,6 @@ use pozitronik\helpers\ArrayHelper;
 use Throwable;
 use yii\base\Exception;
 use yii\base\Model;
-use yii\helpers\FileHelper;
 use yii\web\ServerErrorHttpException;
 use yii\web\UploadedFile;
 
