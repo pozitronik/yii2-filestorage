@@ -6,6 +6,7 @@ namespace pozitronik\filestorage\traits;
 use pozitronik\filestorage\models\FileStorage;
 use pozitronik\helpers\ArrayHelper;
 use Throwable;
+use yii\base\Exception;
 use yii\base\Model;
 use yii\web\ServerErrorHttpException;
 use yii\web\UploadedFile;
@@ -66,6 +67,25 @@ trait FileStorageTrait {
 			}
 		}
 		return $result;
+	}
+
+	/**
+	 * @param mixed $rawData Любые данные, помещаемые в файл
+	 * @param array $tags Массив тегов, прибиваемых к загрузке
+	 * @param Model|null $toModel Если не null, то загружаемые файлы будут ассоциированы с указанной моделью
+	 * @return FileStorage При успехе возвращает загруженный объект хранения файла
+	 * @throws Exception
+	 * @throws Throwable
+	 */
+	public function uploadRawData($rawData, array $tags = [], ?Model $toModel = null):FileStorage {
+		if (
+			(false === $path = tempnam(sys_get_temp_dir(), $this->formName()))
+			|| (false === $temp = fopen($path, 'wb+'))
+			|| false === fwrite($temp, $rawData)
+			|| false === fclose($temp)
+		) throw new Exception("Can't access temp file!");
+		/** @var Model $this */
+		return FileStorage::fromFile($path, $toModel??$this, $tags);
 	}
 
 	/**
