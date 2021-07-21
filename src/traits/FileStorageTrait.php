@@ -49,30 +49,31 @@ trait FileStorageTrait {
 	 * Загружает файл в соответствующий модели каталог, возвращает полный путь или null в случае ошибки
 	 * @param string[] $tags Массив тегов, прибиваемых к загрузке
 	 * @param string $instanceName Параметр для переопределения имени инпута при необходимости
+	 * Если в $model->$instanceName передаётся сгенерированный UploadedFile, то $instanceName может указывать на него.
 	 * @param Model|null $toModel Если не null, то загружаемые файлы будут ассоциированы с указанной моделью
 	 * @return FileStorage[] При успехе возвращает массив загруженных объектов хранения файла
 	 * @throws Throwable
 	 */
 	public function uploadFile(array $tags = [], string $instanceName = 'uploadFileInstance', ?Model $toModel = null):array {
-        $uploadFileInstances = array_filter([$this->$instanceName]);
+		$uploadFileInstances = array_filter([$this->$instanceName]);
 
-        $currInstances = ArrayHelper::getValue($uploadFileInstances, '0');
-        if (is_array($currInstances)) {
-            $uploadFileInstances = $currInstances;
-        }
+		if (is_array($currInstances = ArrayHelper::getValue($uploadFileInstances, '0'))) {
+			$uploadFileInstances = $currInstances;//UploadedFile передан в атрибуте
+		}
 
-        if ([] === $uploadFileInstances) {
-            $uploadFileInstances = UploadedFile::getInstances($this, $instanceName);
-        }
+		if ([] === $uploadFileInstances) {//Получаем переданный в инпуте файл
+			/** @var Model $this */
+			$uploadFileInstances = UploadedFile::getInstances($this, $instanceName);
+		}
 
-        $uploadModel = $toModel??$this;
+		$uploadModel = $toModel??$this;
 
 		return array_map(
-		    static function (UploadedFile $uploadedFile) use ($uploadModel, $tags) {
-		        $uploadModel->processUploadInstance($uploadedFile, $tags);
-            },
-            $uploadFileInstances
-        );
+			static function(UploadedFile $uploadedFileInstance) use ($uploadModel, $tags) {
+				$uploadModel->processUploadInstance($uploadedFileInstance, $tags);
+			},
+			$uploadFileInstances
+		);
 	}
 
 	/**
