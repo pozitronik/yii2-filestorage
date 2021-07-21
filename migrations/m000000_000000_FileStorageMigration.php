@@ -39,10 +39,10 @@ class m000000_000000_FileStorageMigration extends Migration {
 			'deleted' => $this->boolean()->defaultValue(false)->notNull()
 		]);
 
-		$this->createIndex('model_name_model_key', self::mainTableName(), ['model_name', 'model_key']);
-		$this->createIndex('daddy', self::mainTableName(), ['daddy']);
-		$this->createIndex('deleted', self::mainTableName(), ['deleted']);
-		$this->createIndex('path', self::mainTableName(), ['path'], true);
+		$this->createIndex(self::mainTableName().'_model_name_model_key', self::mainTableName(), ['model_name', 'model_key']);
+		$this->createIndex(self::mainTableName().'_daddy', self::mainTableName(), ['daddy']);
+		$this->createIndex(self::mainTableName().'_deleted', self::mainTableName(), ['deleted']);
+		$this->createIndex(self::mainTableName().'_path', self::mainTableName(), ['path'], true);
 
 		$this->createTable(self::tagsTableName(), [
 			'id' => $this->primaryKey(),
@@ -50,7 +50,7 @@ class m000000_000000_FileStorageMigration extends Migration {
 			'tag' => $this->string(255)->notNull()
 		]);
 
-		$this->createIndex('file_tag', self::tagsTableName(), ['file', 'tag'], true);
+		$this->createIndex(self::tagsTableName().'_file_tag', self::tagsTableName(), ['file', 'tag'], true);
 	}
 
 	/**
