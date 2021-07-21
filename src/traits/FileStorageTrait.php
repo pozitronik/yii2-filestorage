@@ -54,19 +54,25 @@ trait FileStorageTrait {
 	 * @throws Throwable
 	 */
 	public function uploadFile(array $tags = [], string $instanceName = 'uploadFileInstance', ?Model $toModel = null):array {
-		$result = [];
+        $uploadFileInstances = array_filter([$this->$instanceName]);
 
-		$uploadModel = $toModel??$this;
+        $currInstances = ArrayHelper::getValue($uploadFileInstances, '0');
+        if (is_array($currInstances)) {
+            $uploadFileInstances = $currInstances;
+        }
 
-		/** @var Model $this */
-		if (null !== $uploadFileInstance = UploadedFile::getInstance($this, $instanceName)) {
-			$result[] = $uploadModel->processUploadInstance($uploadFileInstance, $tags);
-		} elseif ([] !== $uploadFileInstances = UploadedFile::getInstances($this, $instanceName)) {
-			foreach ($uploadFileInstances as $uploadFileInstance) {
-				$result[] = $uploadModel->processUploadInstance($uploadFileInstance, $tags);
-			}
-		}
-		return $result;
+        if ([] === $uploadFileInstances) {
+            $uploadFileInstances = UploadedFile::getInstances($this, $instanceName);
+        }
+
+        $uploadModel = $toModel??$this;
+
+		return array_map(
+		    static function (UploadedFile $uploadedFile) use ($uploadModel, $tags) {
+		        $uploadModel->processUploadInstance($uploadedFile, $tags);
+            },
+            $uploadFileInstances
+        );
 	}
 
 	/**
