@@ -55,15 +55,25 @@ ModalHelperAsset::register($this);
 						'class' => ActionColumn::class,
 						'template' => '{view} {versions} {copy} {upload}',
 						'buttons' => [
+							'view' => static function($url, $model, $key) {
+								return Html::a('<i class="fa fa-eye"></i>', $url, [
+									'data' => ['trigger' => 'hover', 'toggle' => 'tooltip', 'placement' => 'top', 'original-title' => 'Просмотр']
+								]);
+							},
 							'versions' => static function($url, $model, $key) {
-								return Html::a('<i class="fa fa-tags"></i>', $url);
+								return Html::a('<i class="fa fa-tags"></i>', $url, [
+									'data' => ['trigger' => 'hover', 'toggle' => 'tooltip', 'placement' => 'top', 'original-title' => 'Версии']
+								]);
 							},
 							'copy' => static function($url, $model, $key) {
-								return Html::a('<i class="fa fa-copy"></i>', $url);
+								return Html::a('<i class="fa fa-copy"></i>', $url, [
+									'data' => ['trigger' => 'hover', 'toggle' => 'tooltip', 'placement' => 'top', 'original-title' => 'Редактирование']
+								]);
 							},
 							'upload' => static function($url, $model, $key) {
 								return Html::a('<i class="fa fa-upload"></i>', "#", [
-									'onclick' => new JsExpression('AjaxModal("'.FSModule::to(['index/modal-upload', 'id' => $model->id]).'", "file-modal-upload")')
+									'onclick' => new JsExpression('AjaxModal("'.FSModule::to(['index/modal-upload', 'id' => $model->id]).'", "file-modal-upload")'),
+									'data' => ['trigger' => 'hover', 'toggle' => 'tooltip', 'placement' => 'top', 'original-title' => 'Загрузка']
 								]);
 							}
 						]
