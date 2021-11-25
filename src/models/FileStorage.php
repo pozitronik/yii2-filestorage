@@ -97,7 +97,7 @@ class FileStorage extends ActiveRecord {
 			[['path'], 'unique'],
 			[['at'], 'safe'],//current_timestamp
 			[['daddy', 'delegate', 'model_key'], 'integer'],
-			[['daddy'], 'default', 'value' => Yii::$app->user->id, 'isEmpty' => static function($value) {
+			[['daddy'], 'default', 'value' => Yii::$app->user->id??null, 'isEmpty' => static function($value) {
 				return empty($value);
 			}],
 			[['delegate'], 'default', 'value' => static function($value) {
