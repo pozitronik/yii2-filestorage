@@ -123,11 +123,9 @@ trait FileStorageTrait {
 	 * @throws Throwable
 	 */
 	public function files(?array $tags = null):array {
-		$fileStorage = new FileStorage([
+		return (new FileStorage([
 			'model' => $this
-		]);
-
-		return $fileStorage->getActualFiles($tags);
+		]))->getActualFiles($tags);
 	}
 
 	/**
