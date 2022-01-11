@@ -101,7 +101,7 @@ class FileInputWidget extends InputWidget {
 			$renders[] = $this->render('file_input', [
 				'inputId' => $this->_input_id,
 				'fileInfo' => $this->emptyFileInfo,
-				'input' => $this->allowUpload?$this->renderFileInputHtml():false,
+				'input' => $this->renderFileInputHtml(),
 				'downloadButton' => false,
 				'versionsButton' => false,
 			]);
