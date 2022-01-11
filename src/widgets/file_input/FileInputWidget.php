@@ -1,4 +1,4 @@
-<?php /** @noinspection PropertyInitializationFlawsInspection Тот случай, когда работает - не трогай.*/
+<?php
 declare(strict_types = 1);
 
 namespace pozitronik\filestorage\widgets\file_input;
