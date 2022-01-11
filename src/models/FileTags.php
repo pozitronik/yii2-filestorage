@@ -27,7 +27,7 @@ class FileTags extends ActiveRecord {
 
 	/**
 	 * @param int $fileId
-	 * @param array $tags
+	 * @param string[] $tags
 	 * @throws Exception
 	 * @throws InvalidConfigException
 	 */

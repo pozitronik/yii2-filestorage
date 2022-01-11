@@ -450,7 +450,7 @@ class FileStorage extends ActiveRecord {
 	 * Создаёт запись из физического файла, копируя или перемещая файл по правилам моделя
 	 * @param string $fileName
 	 * @param Model|null $model
-	 * @param array $tags
+	 * @param string[] $tags
 	 * @param bool $move
 	 * @return static
 	 * @throws Throwable

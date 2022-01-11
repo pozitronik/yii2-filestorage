@@ -79,7 +79,7 @@ trait FileStorageTrait {
 	/**
 	 * @param mixed $rawData Любые данные, помещаемые в файл
 	 * @param string|null $filename Название файла для сохраняемых данных
-	 * @param array $tags Массив тегов, прибиваемых к загрузке
+	 * @param string[] $tags Массив тегов, прибиваемых к загрузке
 	 * @param Model|null $toModel Если не null, то загружаемые файлы будут ассоциированы с указанной моделью
 	 * @return FileStorage При успехе возвращает загруженный объект хранения файла
 	 * @throws Exception
