@@ -31,28 +31,28 @@ use yii\web\UploadedFile;
  * - Поддерживается версионность загрузок: для набора [модель, [список тегов]] может существовать только один актуальный файл. При добавлении к модели файла с тем же набором тегов, он становится актуальным, а предыдущие файлы можно забрать, как версии.
  *
  * @property int $id
- * @property string $name -- оригинальное имя файла
- * @property string $path -- сохранённое имя файла
- * @property null|string $model_name -- связанная модель
- * @property null|int $model_key -- ключ связанной модели
- * @property-read string $at -- дата загрузки //current_timestamp
- * @property null|int $daddy -- id загрузившего пользователя
- * @property null|int $delegate -- для совместимости с tws: id делегировавшего юзера
- * @property bool $deleted -- флаг удаления
- * @property null|ActiveRecord|Model $model -- объект, к которому привязан файл. Предполагается, что это ActiveRecord, но может быть любая модель (в этом случае привязка файлов может работать только по тегам, без ключей)
- * @property string[] $tags -- набор тегов, которыми помечен файл
- * @property FileTags[] $relFileTags -- связь с таблицей тегов
- * @property-read string $uploadDir -- в зависимости от глобальных настроек и привязанной модели отдаёт путь загрузки
- * @property-read null|int $size -- размер файла в байтах. В текущей реализации запрашивается из ФС. Если файл отсутствует/недоступен, равно null
+ * @property string $name Оригинальное имя файла
+ * @property string $path Сохранённое имя файла
+ * @property null|string $model_name Связанная модель
+ * @property null|int $model_key Ключ связанной модели
+ * @property-read string $at Дата загрузки //current_timestamp
+ * @property null|int $daddy id загрузившего пользователя
+ * @property null|int $delegate id делегировавшего юзера
+ * @property bool $deleted Флаг удаления
+ * @property null|ActiveRecord|Model $model Объект, к которому привязан файл. Предполагается, что это ActiveRecord, но может быть любая модель (в этом случае привязка файлов может работать только по тегам, без ключей)
+ * @property string[] $tags Набор тегов, которыми помечен файл
+ * @property FileTags[] $relFileTags Связь с таблицей тегов
+ * @property-read string $uploadDir В зависимости от глобальных настроек и привязанной модели отдаёт путь загрузки
+ * @property-read null|int $size Размер файла в байтах. В текущей реализации запрашивается из ФС. Если файл отсутствует/недоступен, равно null
  *
  *
- * @property-read FileStorage[] $versions -- массив всех версий загрузки
- * @property-read int $versionIndex -- индекс версии загрузки (где 0 -- актуальная)
- * @property-read int $versionsCount -- количество версий файла
- * @property-read FileStorage[] $allModelUploads -- массив всех загрузок, привязанных к этой модели
+ * @property-read FileStorage[] $versions Массив всех версий загрузки
+ * @property-read int $versionIndex Индекс версии загрузки (где 0 -- актуальная)
+ * @property-read int $versionsCount Количество версий файла
+ * @property-read FileStorage[] $allModelUploads Массив всех загрузок, привязанных к этой модели
  *
- * @property-read FileTags[] $allModelTags -- все модели тегов, под которыми загружались файлы к этой модели
- * @property UploadedFile $uploadFileInstance -- инстанс загрузки.
+ * @property-read FileTags[] $allModelTags Все модели тегов, под которыми загружались файлы к этой модели
+ * @property UploadedFile $uploadFileInstance Инстанс загрузки.
  *
  */
 class FileStorage extends ActiveRecord {
@@ -61,14 +61,13 @@ class FileStorage extends ActiveRecord {
 
 	public const CURRENT_FILE = 0;
 
-	public $base_dir = '@app/web/uploads/';
-	public $models_subdirs = true;
-	public $name_subdirs_length = 2;
+	public string $base_dir = '@app/web/uploads/';
+	public bool $models_subdirs = true;
+	public int $name_subdirs_length = 2;
 
-	private $_uploadFileInstance;//UploadedFile
-	private $_model;//храним загруженный экземпляр модели, чтобы не перевычислять на каждое обращение
-	private $_tags = [];
-	private $_filename;
+	private ?UploadedFile $_uploadFileInstance = null;//UploadedFile
+	private ?object $_model = null;//храним загруженный экземпляр модели, чтобы не перевычислять на каждое обращение
+	private array $_tags = [];
 
 	/**
 	 * {@inheritdoc}
@@ -383,7 +382,6 @@ class FileStorage extends ActiveRecord {
 		}
 
 		$fileName = BaseFileHelper::normalizePath($this->uploadDir.DIRECTORY_SEPARATOR.PathHelper::ChangeFileName($fileName, pathinfo($fileName, PATHINFO_FILENAME)."_".Utils::random_str(16)));//файл сохраняется с оригинальным именем и случайным постфиксом, во избежание коллизий
-
 
 		if (!$this->uploadFileInstance->saveAs($fileName)) {
 			$this->addError('uploadFileInstance', "Не могу сохранить файл {$fileName}");
