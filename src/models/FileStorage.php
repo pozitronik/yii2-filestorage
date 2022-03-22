@@ -83,7 +83,7 @@ class FileStorage extends ActiveRecord {
 	 * {@inheritdoc}
 	 */
 	public static function tableName():string {
-		return ArrayHelper::getValue(ModuleHelper::params(FSModule::class), 'tableName', 'sys_file_storage');
+		return FSModule::param('tableName', 'sys_file_storage');
 	}
 
 	/**
