@@ -36,7 +36,7 @@ class m000000_000001_FileStorageTimestampsTimezones extends Migration {
 	 */
 	public function safeDown() {
 		if (null !== ArrayHelper::getValue($this->db->schema->typeMap, 'timestamptz')) {
-			$this->alterColumn(self::mainTableName(), 'at', $this->timestamp(0)->notNull()->comment('Дата и время создания.'));
+			$this->alterColumn(self::mainTableName(), 'at', $this->timestamp(0)->defaultExpression('CURRENT_TIMESTAMP')->notNull()->comment('Дата и время создания.'));
 		} else {
 			Yii::info('timestamptz column type is not supported bu DB schema, migration not applied.');
 		}
